@@ -1,0 +1,53 @@
+<div class="conteudo">
+  <div *ngIf="!estaCarregando">
+    <form class="clr-form">
+      <clr-date-container>
+        <label>Selecione uma data</label>
+        <input
+          id="dataSelecionada"
+          type="date"
+          [(clrDate)]="dataSelecionada"
+          [disabled]="listaPlacas.length < 1"
+        />
+      </clr-date-container>
+      <clr-input-container>
+        <label>Filtrar por placa</label>
+        <input
+          clrInput
+          placeholder="Placa"
+          name="input"
+          [(ngModel)]="textoFiltro"
+          [disabled]="listaPlacas.length < 1"
+          (ngModelChange)="filtraListaPlaca()"
+        />
+      </clr-input-container>
+    </form>
+
+    <div>
+      <clr-datagrid class="datagrid-compact">
+        <clr-dg-placeholder>Não foram encontrados registros</clr-dg-placeholder>
+        <clr-dg-column>Placas</clr-dg-column>
+
+        <clr-dg-row *clrDgItems="let placa of listaPlacas">
+          <clr-dg-cell (click)="listarPosicaoPorPlaca(placa)">{{
+            placa
+          }}</clr-dg-cell>
+        </clr-dg-row>
+
+        <clr-dg-footer>
+          <clr-dg-pagination #pagination [clrDgPageSize]="10">
+            <clr-dg-page-size [clrPageSizeOptions]="[10, 20, 50, 100]"
+              >Placas por página</clr-dg-page-size
+            >
+            {{ pagination.firstItem + 1 }} - {{ pagination.lastItem + 1 }} of
+            {{ pagination.totalItems }} placas
+          </clr-dg-pagination>
+        </clr-dg-footer>
+      </clr-datagrid>
+    </div>
+  </div>
+
+  <div class="loading" *ngIf="estaCarregando">
+    <span class="spinner"> Loading... </span>
+  </div>
+</div>

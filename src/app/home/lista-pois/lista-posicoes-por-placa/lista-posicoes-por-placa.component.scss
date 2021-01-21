@@ -1,0 +1,28 @@
+.conteudo {
+  .table-scroll {
+    overflow: hidden;
+    overflow-y: scroll;
+    height: 700px;
+    padding: 20px;
+  }
+
+  .loading {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .mostrar-registros {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    .mostrar-registros-total {
+      display: flex;
+      justify-content: flex-start;
+    }
+
+    .mostrar-registros-tempo {
+      display: flex;
+    justify-content: flex-end;
+    }
+  }
+}

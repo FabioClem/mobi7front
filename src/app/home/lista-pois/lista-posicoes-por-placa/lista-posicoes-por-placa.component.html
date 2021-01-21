@@ -1,0 +1,66 @@
+<div class="conteudo">
+  <div class="alert alert-danger" role="alert" *ngIf="mensagemErro">
+    <div class="alert-items">
+      <div class="alert-item static">
+        <div class="alert-icon-wrapper">
+          <clr-icon class="alert-icon" shape="exclamation-circle"></clr-icon>
+        </div>
+        <span class="alert-text">
+          <div>Ops, aconteceu algo</div>
+          <div class="mensagem-de-erro">{{ mensagemErro }}</div>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="loading" *ngIf="estaCarregando">
+    <span class="spinner spinner-sm"> Loading... </span>
+  </div>
+
+  <div>Atualizado: {{ ultimaAtualizacao }}</div>
+
+  <div
+    class="table-scroll"
+    (scroll)="onScrolll($event)"
+    *ngIf="listaDePontosAglomerado.length > 0"
+  >
+    <form class="clr-form clr-form-compact">
+      <clr-checkbox-container>
+        <clr-checkbox-wrapper>
+          <input
+            type="checkbox"
+            clrCheckbox
+            name="options"
+            [(ngModel)]="esconderRegistrosQueNaoPossuiTempo"
+          />
+          <label>Esconder os que não possui tempo</label>
+        </clr-checkbox-wrapper>
+      </clr-checkbox-container>
+    </form>
+
+    <div class="mostrar-registros">
+      <span class="mostrar-registros-total"
+        >Mostrando {{ quatidadePontosAparecendo }} registros de
+        {{ listaDePontosAglomeradoOriginal.length }}
+      </span>
+      <span class="mostrar-registros-tempo">
+        Quantidade que possui tempo {{ quatidadePontosQuePossuiemTempo }}
+      </span>
+    </div>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>POI</th>
+          <th>Tempo</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let pscao of listaDePontosAglomerado">
+          <td *ngIf="getMostraRegistro(pscao.tempo)">{{ pscao.nome }}</td>
+          <td *ngIf="getMostraRegistro(pscao.tempo)">{{ pscao.tempo }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
